@@ -1,0 +1,101 @@
+## Configuration du serveur
+<!-- Creation d'une session pour une page-->
+<?php
+// On démarre la session AVANT d'écrire du code HTML
+session_start();
+// Utilisation de la variables $_SESSION
+$_SESSION['nom'] = 'Dupont';
+?>
+
+<!-- Destruction de la session-->
+<?php session_destroy(); ?>
+
+<!-- Création du cookie sécurisé XSS avec delaie d'expiration !-->
+<?php setcookie({nom_cookie}, {données_cookie}, {date_dexpiration (timestamp)} ,null, null, false, true ); 
+    // Utilisation du cookie
+    $_COOKIE[" {nom_cookie}"]
+?>
+
+## Lancement de la page Web
+<!-- Definition du document-->
+<!DOCTYPE HTML>
+
+<!-- Code HTML-->
+<html>  
+
+    <!-- Entête-->
+    <head>
+        <meta-charset/>
+        <!--Inclusion d'un fichier js-->
+        <script type="text/javascript" src="{URL}" ></script>
+    </head> 
+
+    <!-- Corps-->
+    <body>
+            <p>Hello word!</p>     
+            <!-- formulaire-->
+            <form method="post" action="{URL}"  enctype="multipart/form-data" >
+                <label> Nom</label>
+                <input type="text" name="Nom" />
+
+                <input type="file" name="Fichier" /><br />
+                <!-- Validation du formulaire -->
+                <input type="submit" value="Valider" />
+                 
+            </form>
+    </body>
+
+    <!-- Pieds de page-->
+    <footer>
+        <!-- Affiche le contenue html du fichier footer;php-->
+        <?php include("footer.php"); ?>
+    </footer>
+    
+    <!-- Script php-->
+    <?php  
+    /* Script php*/
+    $debug;
+
+    /*Configuration du fichier php*/
+    error_reporting = E_ALL;
+    display_errors = On;
+    /*Affichage des données*/
+    var_dump(display_errors);
+    /*Debuguage*/
+    die();
+
+    // Tableau associatif
+    $coordonnees = array (
+        'prenom' => 'François',
+        'nom' => 'Dupont',
+        'adresse' => '3 Rue du Paradis',
+        'ville' => 'Marseille');
+        echo"Hello"; 
+        print_r($coordonnees);
+
+    //Reception d'un tableau de données { nom et prenopm}
+        -->Non-sécurisé (url)
+        if (isset($_GET['prenom']) AND isset($_GET['nom'])) 
+            {
+                echo 'Bonjour ' . $_GET['prenom'] . ' ' . $_GET['nom'] . ' !';
+            }
+        -->sécurisé : nom de l element
+        if (isset($_POST['prenom']) AND isset($_POST['nom'])) 
+            {
+                echo 'Bonjour ' . $_POST['prenom'] . ' ' . $_POSt['nom'] . ' !';
+            }
+    //Reception d'un fichier temporaire ($_FILES)
+            var_dump($_FILES);
+        --> Sauvegarde du fichier
+            if (isset($_FILES['nom_du_champs_insertion']) AND !$_FILES['nom_du_champs_insertion']['ERROR'] )) 
+            {
+                move_uploaded_file ({Nom du fichier},{Desdtination_+_Nouveau_Nom_fichier});
+            }
+
+            ?>
+    <!-- Script Js-->
+    <script type="text/javascript">
+        alert("Bonjour le monde !");
+      </script>
+</html>
+
